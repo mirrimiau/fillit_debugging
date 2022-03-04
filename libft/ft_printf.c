@@ -103,5 +103,6 @@ int	ft_printf(const char *format, ...)
 	write(1, prints->cat, ft_strlen(prints->cat));
 	free (prints->data);
 	free (prints);
+	va_end(prints->ap);
 	return (ft_strlen(prints->cat) + prints->data->null_char);
 }

@@ -48,7 +48,7 @@ typedef struct s_filler
 */
 int		parse_playas(t_filler *f);
 int		get_size(char *line, int *rows, int *cols);
-int		parse_board(t_filler *f);
+int		parse_board(t_filler *f, int fp);
 int		parse_piece(t_filler *f);
 int		place_piece(t_filler *f);
 char	**alloc_char_2darr(int rows, int cols);

@@ -33,7 +33,7 @@ int	parse_playas(t_filler *f)
 	return (0);
 }
 
-int	parse_board(t_filler *f)
+int	parse_board(t_filler *f, int fp)
 {
 	int		i;
 	int		j;
@@ -43,6 +43,8 @@ int	parse_board(t_filler *f)
 	while (i < f->b_rows)
 	{
 		get_next_line(f->fd, &f->line);
+		write(fp, f->line, strlen(f->line));
+		write(fp, "\n", 1);
 		ln = ft_strchr(f->line, ' ') + 1;
 		j = 0;
 		while (j < f->b_cols)

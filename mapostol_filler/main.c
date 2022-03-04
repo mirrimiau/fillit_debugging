@@ -26,12 +26,18 @@ int	main(void)
 	t_filler	f;// try to allocate it in the heap??
 	int			ret;
 	char buf[100];
+	int fd;
+	int fp;
+	  	fp = open ("file.txt", O_WRONLY);
 	if (init_filler(&f) < 0)// find player and set all fields in 'f' to ZERO
 		return (-1);
 	while (1)
 	{
+
 		sleep (1);
-			ret = get_next_line(f.fd, &f.line);// Plateau line (Board size)
+		ret = get_next_line(f.fd, &f.line);// Plateau line (Board size)
+		write(fp, f.line, strlen(f.line));
+		write(fp, "\n", 1);
 		if (f.runs == 0)
 		{
 			if (ret <= 0 || get_size(f.line, &f.b_rows, &f.b_cols) < 0)
@@ -50,7 +56,7 @@ int	main(void)
 		ft_strdel(&f.line);
 		get_next_line(f.fd, &f.line);// Board Column Header line
 		ft_strdel(&f.line);
-		if (parse_board(&f) < 0)
+		if (parse_board(&f, fp) < 0)
 			break ;
 		if (parse_piece(&f) == 0)
 		{
@@ -62,19 +68,16 @@ int	main(void)
 			return (-1);
 		}
 		f.runs++;
-		while (1)
-		{
-			if (read(0, buf, 0) > -1)// Plateau line (Board size))
-				break;
-		}
 	}
+	close (fp);
+	system ("leaks mapostol.filler");
 	return (0);
 }
 
 static int	init_filler(t_filler *f)
 {
 	int	ret;
-	//int fd = open ("testmap", O_RDONLY);
+//	int fd = open ("testmap", O_RDONLY);
 	ft_bzero(f, sizeof(*f));
 	//f->fd = fd;
 	ret = get_next_line(f->fd, &f->line);// player line
