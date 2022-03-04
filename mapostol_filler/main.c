@@ -34,7 +34,7 @@ int	main(void)
 	while (1)
 	{
 
-		sleep (1);
+		//sleep (1);
 		ret = get_next_line(f.fd, &f.line);// Plateau line (Board size)
 		write(fp, f.line, strlen(f.line));
 		write(fp, "\n", 1);
@@ -58,7 +58,7 @@ int	main(void)
 		ft_strdel(&f.line);
 		if (parse_board(&f, fp) < 0)
 			break ;
-		if (parse_piece(&f) == 0)
+		if (parse_piece(&f, fp) == 0)
 		{
 			ft_printf("%d %d\n", f.y, f.x);
 		}

@@ -60,13 +60,15 @@ int	parse_board(t_filler *f, int fp)
 	return (0);
 }
 
-int	parse_piece(t_filler *f)
+int	parse_piece(t_filler *f, int fp)
 {
 	int	ret;
 	int	i;
 	int	j;
 
 	ret = get_next_line(f->fd, &f->line);
+	write(fp, f->line, strlen(f->line));
+	write(fp, "\n", 1);
 	if (!ft_strstr(f->line, PIECE_SIZE_LN) || ret <= 0)
 		return (-1);
 	get_size(f->line, &f->p_rows, &f->p_cols);
@@ -79,6 +81,8 @@ int	parse_piece(t_filler *f)
 	while (i < f->p_rows)
 	{
 		get_next_line(f->fd, &f->line);
+		write(fp, f->line, strlen(f->line));
+		write(fp, "\n", 1);
 		j = 0;
 		while (j < f->p_cols)
 		{
